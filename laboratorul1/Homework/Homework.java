@@ -1,4 +1,4 @@
-package org.example.compulsory;
+package org.example.compulsory.homework;
 
 
 import jakarta.servlet.annotation.WebServlet;
@@ -25,6 +25,21 @@ public class Homework extends HttpServlet {
 
         int numVertices = Integer.parseInt(request.getParameter("numVertices"));
         int numEdges = Integer.parseInt(request.getParameter("numEdges"));
+
+        if(numVertices<=0){
+            response.getWriter().write("Number of vertices must be positive.");
+            return;
+        }
+        if (numEdges < 0) {
+            response.getWriter().write("Number of edges cannot be negative.");
+            return;
+        }
+        int maxEdges = numVertices * (numVertices - 1) / 2;
+        if (numEdges > maxEdges) {
+            response.getWriter().write("The number of edges cannot more than " + maxEdges + " for " + numVertices + " vertices.");
+            return;
+        }
+
         RandomGnmGraphGenerator generator = new RandomGnmGraphGenerator(numVertices, numEdges);
         Graph graph = generator.createGraph();
 
