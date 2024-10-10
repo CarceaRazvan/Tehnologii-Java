@@ -4,12 +4,12 @@
 Am folosit clasa **GraphBuilder** din biblioteca Graph4J pentru a genera un graf fara muchii cu un anumit număr de noduri. Pentru a adauga
 muchii in graf (ca sa-l facem complet) cu o anumita pondere am folosit **graph.addEdge(new Edge(i, j, weight))**. 
 
-Pentru a genera arborii de acoperire în ordinea crescătoare a greutății am folosit clasa **WeightedSpanningTreeIterator** din Graph4J
+Pentru a genera arborii de acoperire în ordinea crescătoare a greutății am folosit clasa **WeightedSpanningTreeIterator** din Graph4J.
 Stocarea acestor arbori se face folosind un map de tip **LinkedHashMap** pentru a mentine ordinea inserării lor. Map-ul are cheie 
-multimea de muchii iar valoare este greutatea arborelui.
+mulțimea de muchii iar valoare este greutatea arborelui.
 
 ## 2. Crearea Servletului
-Servletul primește ca parametrii ordinul grafului si k care indica numarul de arbori de acoperire generati. Servletul apealează funcția
+Servletul primește ca parametrii ordinul grafului și k care indica numarul de arbori de acoperire generati. Servletul apealează funcția
 **getAllSpanningTreesOrderedByWeight(int order, int k)** pentru a calcula primii k arbori in functie de ordinul. Răspunsul este dat sub
 formă de tabel in care prima coloana reprezinta multimea de muchii, iar a doua greutatea arborului de acoperire.
 
