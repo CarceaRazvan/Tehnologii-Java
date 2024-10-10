@@ -2,7 +2,7 @@
 
 ## 1. Generarea graficului aleatoriu
 
-Am folosit clasa **RandomGnmGraphGenerator** din biblioteca Graph4J pentru a genera graficul.
+Am folosit clasa **RandomGnmGraphGenerator** din biblioteca Graph4J pentru a genera graful.
 Graficul este creat folosind **generator.createGraph()**, iar matricea de adiacentă este obținută prin **graph.adjacencyMatrix()**.
 
 ## 2. Logarea detaliilor cererii
