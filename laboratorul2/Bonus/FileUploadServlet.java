@@ -90,7 +90,7 @@ public class FileUploadServlet extends HttpServlet {
             session.setAttribute("colors", numberOfColors);
             session.setAttribute("nodes", nodes);
             session.setAttribute("edges", edges);
-            response.sendRedirect("graph-displayed.jsp");
+            response.sendRedirect("bonus/result.jsp");
         }
 
     }
