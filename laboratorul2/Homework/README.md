@@ -24,3 +24,11 @@ Metoda **doFilter** folosește clasa **ResponseWrapper** pentru a captura răspu
 Valorile **prelude** și **coda** sunt preluate din contextul aplicației, unde au fost stocate de un listener la inițializarea aplicației. \
 Tot în cadrul acestei metode se adaugă textul **prelude** la început și textul **coda** la finalul conținutului răspunsului. \
 La final se scrie conținutul modificat în fluxul de ieșire al răspunsului.
+
+## 4. Adăugarea CAPTCHA pentru încărcarea fișierului
+
+Kaptcha este o bibliotecă Java utilizată pentru generarea de CAPTCHA. \
+\
+Metoda **doPost** din clasa **FileUploadServlet** verifică **CAPTCHA**-ul introdus de utilizator înainte de a procesa încărcarea fișierului. \
+Clasa **KaptchaServlet** generează o imagine **CAPTCHA** pe baza unei configurări specifice și o trimite ca răspuns. \
+Pagina **input.jsp** include imaginea CAPTCHA generată și un câmp de text pentru introducerea CAPTCHA-ului.
