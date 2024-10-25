@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+   <title>#{msg['edit.users']}</title>
+</h:head>
+
+<h:body>
+   <h:form>
+      <h:selectOneMenu value="#{localeSwitcher.currentLocale}" onchange="this.form.submit()">
+         <f:selectItem itemValue="en" itemLabel="English" />
+         <f:selectItem itemValue="fr" itemLabel="French" />
+         <f:ajax listener="#{localeSwitcher.changeLocale(value)}" render="@all"/>
+      </h:selectOneMenu>
+   </h:form>
+
+   <h1>#{msg['edit.users']}</h1>
+
+   <h:form>
+      <h:commandButton value="View products" action="#{productView.viewProducts}" />
+   </h:form>
+
+   <h:form id="mainForm">
+      <p:dataTable var="user" value="#{userView.users}" id="userTable"
+                   rowKey="#{userView.users.id}" paginator="true" rows="10">
+         <p:column headerText="Name">
+            <h:outputText value="#{user.name}" />
+         </p:column>
+         <p:column headerText="Email">
+            <h:outputText value="#{user.email}" />
+         </p:column>
+         <p:column headerText="Birth Date">
+            <h:outputText value="#{user.birthDate}">
+               <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:outputText>
+         </p:column>
+         <p:column headerText="Gender">
+            <h:outputText value="#{user.gender}" />
+         </p:column>
+         <p:column headerText="Roles">
+            <h:outputText value="#{user.rolesAsString}" />
+         </p:column>
+
+
+         <p:column headerText="Actions">
+            <p:commandButton value="Edit" actionListener="#{userEdit.openDialog(user.id)}"
+                             update=":mainForm:userDialog" oncomplete="PF('userDialog').show();" />
+
+            <p:commandButton value="Select Products" actionListener="#{productEdit.openDialogProducts(user.id)}"
+                             update=":mainForm:productPickListDialog" oncomplete="PF('productPickListDialog').show();"/>
+         </p:column>
+      </p:dataTable>
+
+      <p:commandButton value="Add New User" icon="pi pi-plus"
+                       action="#{userEdit.openDialogAddUser()}"
+                       update=":mainForm:userDialog" oncomplete="PF('userDialog').show();" />
+
+
+      <p:dialog id="userDialog" header="User Details" widgetVar="userDialog" modal="true"
+                closable="true" resizable="false">
+
+         <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="name" value="Name:" />
+            <p:inputText id="name" value="#{userEdit.dialogUser.name}" required="true" label="Name"/>
+
+            <h:outputLabel for="email" value="Email:" />
+            <p:inputText id="email" value="#{userEdit.dialogUser.email}" required="true" label="Email"/>
+
+            <h:outputLabel value="Birth Date:" for="birthDate"/>
+            <p:calendar id="birthDate" value="#{userEdit.dialogUser.birthDate}" pattern="dd/MM/yyyy" />
+
+            <h:outputLabel value="Gender:" for="gender"/>
+            <p:selectOneMenu id="gender" value="#{userEdit.dialogUser.gender}">
+               <f:selectItem itemLabel="Select" itemValue="" />
+               <f:selectItems value="#{userEdit.genders}" var="gender" itemValue="#{gender}" itemLabel="#{gender}" />
+            </p:selectOneMenu>
+
+            <h:outputLabel for="roles" value="Roles:" />
+            <p:selectManyCheckbox id="roles" value="#{userEdit.dialogUser.roles}">
+               <f:selectItems value="#{userEdit.availableRoles}" />
+            </p:selectManyCheckbox>
+
+         </h:panelGrid>
+
+         <p:commandButton value="Save" action="#{userEdit.updateUser()}" update=":mainForm:userTable" oncomplete="PF('userDialog').hide();" />
+         <p:commandButton value="Cancel" onclick="PF('userDialog').hide();" type="button" />
+      </p:dialog>
+
+
+      <p:dialog id="productPickListDialog" header="Select Products" widgetVar="productPickListDialog" modal="true"
+                closable="true" resizable="false">
+         <p:pickList id="pickList" value="#{productEdit.dualListModel}" var="product"
+                     itemLabel="#{product.name} - #{product.price}" itemValue="#{product}"
+                     list="#{productEdit.productsUser}"
+                     converter="productConverter"/>
+
+         <p:commandButton value="Save Selected Products" action="#{productEdit.saveSelectedProducts()}"
+                          update=":mainForm:userTable" oncomplete="PF('productPickListDialog').hide();" />
+         <p:commandButton value="Cancel" onclick="PF('productPickListDialog').hide();" type="button" />
+      </p:dialog>
+
+
+
+   </h:form>
+</h:body>
+</html>
