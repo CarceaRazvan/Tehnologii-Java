@@ -1,0 +1,66 @@
+<ui:composition template="/WEB-INF/templates/dataEdit.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/components">
+
+
+   <ui:define name="content">
+       <h1>#{msg['edit.products']}</h1>
+
+      <h:form id="dataEditForm">
+
+
+      <p:commandButton value="Edit" actionListener="#{dataEdit.openDialog()}"
+                       update=":dataEditForm:dataEditDialog" oncomplete="PF('dataEditDialog').show();" />
+
+      <!-- Codul Dialogului de Editare -->
+      <p:dialog id="dataEditDialog" header="#{msg['edit.title']}"
+                closable="true"  resizable="false" modal="true" widgetVar="dataEditDialog" >
+            <p:messages id="messages" showDetail="false"
+                        autoUpdate="true" closable="true" />
+
+            <ui:insert name="dataEditContent">
+               <!-- Conținutul editorului de date -->
+               <h:panelGrid columns="2" cellpadding="5">
+                   <h:outputLabel for="id" value="Id" />
+                   <p:inputText id="id" value="#{dataEdit.dialogProduct.id}" required="true"
+                                label="Id" />
+
+                   <h:outputLabel for="name" value="Name:" />
+                   <p:inputText id="name" value="#{dataEdit.dialogProduct.name}" required="false" label="Name"/>
+
+                   <h:outputLabel for="description" value="Description" />
+                   <p:inputText id="description" value="#{dataEdit.dialogProduct.description}" required="false"
+                                label="Description" />
+
+                   <h:outputLabel for="category" value="Category" />
+                   <p:inputText id="category" value="#{dataEdit.dialogProduct.category}" required="false"
+                                label="Category" />
+
+               </h:panelGrid>
+            </ui:insert>
+
+            <p:focus id="formFocus" context="dataEditForm" />
+
+            <h:panelGrid id="dataEditButtons" columns="2" styleClass="ui-grid-col-2">
+                <p:commandButton value="Save" action="#{dataEdit.saveProduct()}" update=":dataEditForm:dataEditDialog" oncomplete="PF('dataEditDialog').hide();" />
+
+                <p:commandButton value="Cancel" onclick="PF('dataEditDialog').hide();" type="button" />
+
+            </h:panelGrid>
+
+         <p:ajax event="close" listener="#{dataEdit.onClose}" />
+      </p:dialog>
+
+      <!-- Buton pentru deschiderea dialogului -->
+          <my:lastModifiedInfo user="#{dataEdit.lastModifiedUser}" />
+
+
+      </h:form>
+
+   </ui:define>
+</ui:composition>
+

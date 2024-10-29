@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/templates/page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/components">
+
+    <ui:define name="content">
+        <h1>#{msg['edit.products']}</h1>
+
+        <h:form id="dataEditForm">
+            <!-- Dialog for Editing Data -->
+            <p:dialog id="dataEditDialog" header="#{msg['edit.title']}"
+                      closable="true"  resizable="false" modal="true" widgetVar="dataEditDialog" >
+
+                <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+                <ui:insert name="dataEditContent">
+                    <!-- Data Edit Content -->
+
+
+                </ui:insert>
+                <my:lastModifiedInfo user="#{dataEdit.getLastModifiedUserTimestamp}" />
+
+                <!-- Setting focus and actions for buttons -->
+                <p:focus id="formFocus" context="dataEditForm" />
+
+                <h:panelGrid id="dataEditButtons" columns="2" styleClass="ui-grid-col-2">
+
+                </h:panelGrid>
+
+                <!-- Handling the dialog close event -->
+                <p:ajax event="close" listener="#{dataEdit.onClose}" />
+            </p:dialog>
+
+            <!-- Button to Open the Edit Dialog -->
+        </h:form>
+    </ui:define>
+</ui:composition>

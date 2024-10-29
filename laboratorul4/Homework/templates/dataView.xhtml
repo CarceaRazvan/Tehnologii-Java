@@ -1,0 +1,33 @@
+<ui:composition template="/WEB-INF/templates/page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <!-- Message Form -->
+        <h:form id="dataViewMsg">
+            <p:messages id="messages" for="dataForm" showDetail="false"
+                        autoUpdate="true" closable="true" />
+        </h:form>
+
+        <!-- Main Form for Data View -->
+        <h:form id="dataForm" style="background: #dadada">
+            <!-- Insert the content defined by each page here -->
+            <ui:insert name="dataViewContent">
+
+                <h:outputText value="Product List:" />
+                <ul>
+                    <ui:repeat value="#{productView.products}" var="product">
+                        <li><h:outputText value="#{product.name}" /></li>
+                    </ui:repeat>
+                </ul>
+
+            </ui:insert>
+        </h:form>
+
+        <ui:insert name="dialogs"/>
+    </ui:define>
+
+</ui:composition>
