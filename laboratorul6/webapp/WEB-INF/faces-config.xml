@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                                  https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+
+    <managed-bean>
+        <managed-bean-name>userView</managed-bean-name>
+        <managed-bean-class>com.example.lab6.view.UserView</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>productView</managed-bean-name>
+        <managed-bean-class>com.example.lab6.view.ProductView</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+<!--   viewUsers -->
+
+    <navigation-rule>
+        <from-view-id>/pages/UserView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewUsers</from-outcome>
+            <to-view-id>/pages/UserView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/UserView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewProducts</from-outcome>
+            <to-view-id>/pages/ProductView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/UserView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewOrders</from-outcome>
+            <to-view-id>/pages/OrderView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/UserView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editOrders</from-outcome>
+            <to-view-id>/pages/OrderEdit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+<!--   product view -->
+
+    <navigation-rule>
+        <from-view-id>/pages/ProductView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewUsers</from-outcome>
+            <to-view-id>/pages/UserView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/ProductView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewProducts</from-outcome>
+            <to-view-id>/pages/ProductView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/ProductView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewOrders</from-outcome>
+            <to-view-id>/pages/OrderView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/ProductView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editOrders</from-outcome>
+            <to-view-id>/pages/OrderEdit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!--   order view -->
+    <navigation-rule>
+        <from-view-id>/pages/OrderView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewUsers</from-outcome>
+            <to-view-id>/pages/UserView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/OrderView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewProducts</from-outcome>
+            <to-view-id>/pages/ProductView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/OrderView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewOrders</from-outcome>
+            <to-view-id>/pages/OrderView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/OrderView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editOrders</from-outcome>
+            <to-view-id>/pages/OrderEdit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!--   order edit -->
+    <navigation-rule>
+        <from-view-id>/pages/OrderEdit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewUsers</from-outcome>
+            <to-view-id>/pages/UserView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/OrderEdit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewProducts</from-outcome>
+            <to-view-id>/pages/ProductView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/OrderEdit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewOrders</from-outcome>
+            <to-view-id>/pages/OrderView.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/OrderEdit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editOrders</from-outcome>
+            <to-view-id>/pages/OrderEdit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

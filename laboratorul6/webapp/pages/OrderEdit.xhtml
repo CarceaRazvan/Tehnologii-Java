@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Order Edit</title>
+</h:head>
+<h:body>
+    <div id="header" class="p-d-block">
+        <ui:insert name="header">
+            <ui:include src="/WEB-INF/decorators/header.xhtml" />
+        </ui:insert>
+    </div>
+
+    <h2>Order Edit</h2>
+
+    <h:form id="mainForm">
+
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel for="@next" value="User"/>
+            <p:selectOneMenu id="optionUser" value="#{orderEdit.selectedUser}">
+                <f:selectItem itemLabel="Select a User" itemValue="" />
+                <f:selectItems value="#{orderEdit.userList}"/>
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <h:outputText value="Current Order Items:" />
+        <p:dataTable value="#{orderEdit.orderItems}" var="item" styleClass="table">
+            <p:column headerText="Product">
+                <h:outputText value="#{item.product.name}" />
+            </p:column>
+            <p:column headerText="Quantity">
+                <h:outputText value="#{item.quantity}" />
+            </p:column>
+            <p:column>
+                <p:commandButton value="Remove" action="#{orderEdit.deleteItem(item)}" update="mainForm" />
+            </p:column>
+        </p:dataTable>
+
+        <!-- Button to open the dialog -->
+        <p:commandButton value="Add Product"
+                         update=":mainForm:addProductDialog" oncomplete="PF('addProductDialog').show();"
+                         style="margin-right: 10px;" />
+
+        <p:commandButton value="Check Out" action="#{orderEdit.saveOrder}"
+                         update="mainForm" style="margin-right: 10px;" />
+
+        <p:commandButton value="Clear Order" action="#{orderEdit.clearOrder}"
+                         update="mainForm" />
+
+        <h:messages id="messages" showDetail="true" showSummary="false" />
+
+        <!-- Product Addition Dialog -->
+        <p:dialog id="addProductDialog" header="Add Product" widgetVar="addProductDialog" modal="true"
+                  closable="true" resizable="false">
+
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <p:outputLabel for="@next" value="Product list"/>
+                <p:selectOneMenu id="option" value="#{orderEdit.selectedProduct}">
+                    <f:selectItem itemLabel="Select a Product" itemValue="" />
+                    <f:selectItems value="#{orderEdit.productList}"/>
+                </p:selectOneMenu>
+
+                <h:outputLabel for="quantity" value="Quantity:" />
+                <p:inputText id="quantity" value="#{orderEdit.quantity}"
+                             required="true"
+                             label="Quantity"
+                             placeholder="Enter Quantity"
+                />
+
+            </h:panelGrid>
+
+            <!-- Action buttons for dialog -->
+            <p:commandButton value="Confirm" action="#{orderEdit.addItemToOrder}"
+                             update=":mainForm" oncomplete="PF('addProductDialog').hide();"
+                             style="margin-right: 10px;" />
+            <p:commandButton value="Cancel"
+                             onclick="PF('addProductDialog').hide();"
+                             style="margin-right: 10px;"
+                             process="@this" update="@form" />
+        </p:dialog>
+
+
+
+    </h:form>
+
+</h:body>
+</html>

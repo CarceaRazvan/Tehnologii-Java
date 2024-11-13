@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+   <title>Product List</title>
+</h:head>
+<h:body>
+   <div id="header" class="p-d-block">
+      <ui:insert name="header">
+         <ui:include src="/WEB-INF/decorators/header.xhtml" />
+      </ui:insert>
+   </div>
+   <h2>Product List</h2>
+
+      <p:dataTable id="productTable" value="#{productView.items}" var="product" styleClass="table">
+
+         <!-- ID Column -->
+         <p:column headerText="ID">
+            <h:outputText value="#{product.id}" />
+         </p:column>
+
+         <!-- Name Column -->
+         <p:column headerText="Name">
+            <h:outputText value="#{product.name}" />
+         </p:column>
+
+         <!-- Description Column -->
+         <p:column headerText="Description">
+            <h:outputText value="#{product.description}" />
+         </p:column>
+
+         <!-- Price Column -->
+         <p:column headerText="Price">
+            <h:outputText value="#{product.price}" />
+         </p:column>
+
+         <p:column headerText="Stock">
+
+            <h:form>
+               <!-- Display the current value -->
+               <h:outputText value="#{productView.fetchStock(product.id)}" id="valueDisplay" />
+
+               <!-- PrimeFaces button to trigger value update -->
+               <p:commandButton value="Update Value"
+                                action="#{productView.fetchStock(product.id)}"
+                                update="valueDisplay" />
+            </h:form>
+
+         </p:column>
+
+      </p:dataTable>
+
+   <p:commandButton value="Refresh List" action="#{productView.loadItems}" update="productTable" icon="pi pi-refresh" styleClass="ui-button-primary" />
+
+
+</h:body>
+</html>

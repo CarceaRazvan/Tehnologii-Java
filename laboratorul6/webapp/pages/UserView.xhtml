@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>List of Users</title>
+</h:head>
+
+<h:body>
+    <div id="header" class="p-d-block">
+        <ui:insert name="header">
+            <ui:include src="/WEB-INF/decorators/header.xhtml" />
+        </ui:insert>
+    </div>
+
+    <h:form>
+        <h2>List of Users</h2>
+
+        <p:dataTable id="userTable" value="#{userView.items}" var="user" border="1" styleClass="ui-widget ui-widget-content">
+            <p:column headerText="ID">
+                #{user.id}
+            </p:column>
+            <p:column headerText="Email">
+                #{user.email}
+            </p:column>
+            <p:column headerText="Name">
+                #{user.name}
+            </p:column>
+            <p:column headerText="Gender">
+                #{user.gender}
+            </p:column>
+
+        </p:dataTable>
+
+        <!-- PrimeFaces Command Button to refresh the list of users -->
+        <p:commandButton value="Refresh List" action="#{userView.loadItems}" update="userTable" icon="pi pi-refresh" styleClass="ui-button-primary" />
+    </h:form>
+</h:body>
+</html>

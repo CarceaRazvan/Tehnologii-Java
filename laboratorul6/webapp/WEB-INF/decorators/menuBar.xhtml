@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <div id="menuBar">
+
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:toolbar style="width: 100%;">
+                    <!-- Left side: Menu bar -->
+                    <p:toolbarGroup align="left">
+                        <p:menubar hideDelay="1000">
+                            <p:menuitem value="Users" outcome="viewUsers" icon="pi pi-fw pi-user"/>
+                            <p:menuitem value="Products" outcome="viewProducts" icon="pi pi-fw pi-file"/>
+
+                            <p:submenu label="Orders" icon="pi pi-fw pi-file">
+                                <p:menuitem value="View" outcome="viewOrders" icon="pi pi-fw pi-file"/>
+                                <p:menuitem value="Edit" outcome="editOrders" icon="pi pi-fw pi-file-plus"/>
+                            </p:submenu>
+
+                        </p:menubar>
+                    </p:toolbarGroup>
+
+                    <!-- Right side: Title -->
+                    <p:toolbarGroup align="right">
+                        <h:outputText value="Laboratorul 6" style="font-size: 16px; font-weight: bold; color: #333;" />
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </h:form>
+        </div>
+    </div>
+
+</f:view>
+</html>
