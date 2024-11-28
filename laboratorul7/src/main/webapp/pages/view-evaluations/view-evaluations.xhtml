@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Evaluations</title>
+    <link type="text/css" rel="stylesheet" href="./view-evaluations.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obținem datele din token
+            const token = localStorage.getItem('jwt_auth');
+
+            if (!token) {
+                window.location.href = '../../index.xhtml'; // Dacă nu există token, redirecționăm utilizatorul
+            } else {
+                // Decodificăm token-ul pentru a obține datele
+                const decoded = jwt_decode(token);
+                const role = decoded.role;
+
+                if (decoded.role === 'STUDENT') {
+
+                    window.location.href = '../../index.xhtml';
+                }
+
+                const studentUsernameFromToken = decoded.sub;  // Username-ul din token
+
+                // Obținem username-ul din formular
+                const studentUsernameInForm = document.getElementById("evaluateForm:studentUsername").value;
+
+                // Dacă username-ul din token diferă de cel din formular, actualizăm și trimitem formularul din nou
+                if (studentUsernameInForm !== studentUsernameFromToken) {
+                    // Resetăm câmpurile formularului cu datele din token
+                    document.getElementById("evaluateForm:studentUsername").value = studentUsernameFromToken;
+                    document.getElementById("evaluateForm:role").value = role;
+
+                    // Trimitem formularul cu datele actualizate
+                    document.getElementById("evaluateForm").submit();
+                } else {
+                    // Dacă username-ul din formular și cel din token sunt identice, nu facem nimic
+                    return;
+                }
+            }
+        });
+    </script>
+
+</h:head>
+
+<h:body>
+
+    <div id="header" class="p-d-block">
+        <ui:insert name="header">
+            <ui:include src="/WEB-INF/decorators/header.xhtml" />
+        </ui:insert>
+    </div>
+    <h:form id="evaluateForm" styleClass="form-class">
+    <h1>Your Evaluations</h1>
+
+        <h:inputHidden id="studentUsername" value="#{evaluationView.username}" />
+        <h:inputHidden id="role" value="#{evaluationView.role}" />
+
+
+        <p:dataTable value="#{evaluationView.evaluations}" var="evaluation">
+
+        <p:column headerText="RN" rendered="#{evaluationView.role == 'ADMIN'}">
+            <h:outputText value="#{evaluation.registrationNumber}" />
+        </p:column>
+
+        <p:column headerText="Teacher Name" rendered="#{evaluationView.role == 'ADMIN'}">
+            <h:outputText value="#{evaluation.teacher.name}" />
+        </p:column>
+
+        <p:column headerText="Course">
+            <h:outputText value="#{evaluation.course.name}" />
+        </p:column>
+
+        <p:column headerText="Activity">
+            <h:outputText value="#{evaluation.activity}" />
+        </p:column>
+
+        <p:column headerText="Grade">
+            <h:outputText value="#{evaluation.grade}" />
+        </p:column>
+
+        <p:column headerText="Comment">
+            <p:commandButton value="Comment" actionListener="#{evaluationView.openDialogComment(evaluation.id)}"
+                             update="dataEditDialog" oncomplete="PF('dataEditDialog').show();" />
+        </p:column>
+
+        <p:column headerText="Date">
+            <h:outputText value="#{evaluation.createdAt}" />
+        </p:column>
+
+
+    </p:dataTable>
+
+    </h:form>
+
+    <p:dialog id="dataEditDialog" header="Comment"
+              closable="true"  resizable="false" modal="true" widgetVar="dataEditDialog" >
+
+        <h:outputLabel value="#{evaluationView.selectedComment}" />
+
+
+    </p:dialog>
+
+    <h:form style="margin-top: 50px" rendered="#{evaluationView.role == 'ADMIN'}">
+        <h1>Statistics</h1>
+
+        <p:dataTable value="#{evaluationView.teacherStatistics}" var="stats">
+
+            <!-- Teacher Name Column -->
+            <p:column headerText="Teacher">
+                <h:outputText value="#{stats.teacherName}" />
+            </p:column>
+
+            <!-- Average Grade Column -->
+            <p:column headerText="Average Grade">
+                <h:outputText value="#{stats.averageGrade}" />
+            </p:column>
+
+            <!-- Submission Count Column -->
+            <p:column headerText="Submission Count">
+                <h:outputText value="#{stats.submissionCount}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+
+</h:body>
+
+</html>
