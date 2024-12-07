@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+   <h:head>
+      <title>JWT Info</title>
+      <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js" type="text/javascript"></script>
+      <script type="text/javascript">
+         document.addEventListener('DOMContentLoaded', function () {
+            // Obține token-ul din localStorage
+            const token = localStorage.getItem('jwt_auth');
+            if (token) {
+               // Decodează token-ul
+               const decoded = jwt_decode(token);
+
+               // Afișează numele și rolul
+               document.getElementById('name').textContent = decoded.name || 'N/A';
+               document.getElementById('role').textContent = decoded.role || 'N/A';
+
+               // Verifică rolul și afișează informațiile relevante
+               if (decoded.role === 'TEACHER') {
+                  // Afișează cursurile pentru profesori
+                  const courses = decoded.courses || [];
+                  document.getElementById('courses').textContent = courses.length > 0 ? courses.join(', ') : 'N/A';
+
+                  // Ascunde informațiile despre an și semestru
+                  document.getElementById('year-container').style.display = 'none';
+                  document.getElementById('semester-container').style.display = 'none';
+               } else if (decoded.role === 'STUDENT') {
+                  // Afișează anul și semestrul pentru studenți
+                  document.getElementById('year').textContent = decoded.year || 'N/A';
+                  document.getElementById('semester').textContent = decoded.semester || 'N/A';
+
+                  // Ascunde informațiile despre cursuri
+                  document.getElementById('courses-container').style.display = 'none';
+               } else if (decoded.role === 'ADMIN') {
+
+                  document.getElementById('courses-container').style.display = 'none';
+                  document.getElementById('year-container').style.display = 'none';
+                  document.getElementById('semester-container').style.display = 'none';
+               }
+            } else {
+               // alert("Token-ul JWT nu este disponibil în localStorage!");
+               window.location.href = '../../index.xhtml';
+            }
+         });
+      </script>
+   </h:head>
+   <h:body>
+
+      <div id="header" class="p-d-block">
+         <ui:insert name="header">
+            <ui:include src="/WEB-INF/decorators/header.xhtml" />
+         </ui:insert>
+      </div>
+
+      <h1>Profil</h1>
+      <div>
+         <p><strong>Nume:</strong> <span id="name">N/A</span></p>
+         <p><strong>Rol:</strong> <span id="role">N/A</span></p>
+
+         <div id="courses-container">
+            <p><strong>Cursuri:</strong> <span id="courses">N/A</span></p>
+         </div>
+
+         <div id="year-container">
+            <p><strong>An:</strong> <span id="year">N/A</span></p>
+         </div>
+
+         <div id="semester-container">
+            <p><strong>Semestru:</strong> <span id="semester">N/A</span></p>
+         </div>
+      </div>
+   </h:body>
+</f:view>
+</html>

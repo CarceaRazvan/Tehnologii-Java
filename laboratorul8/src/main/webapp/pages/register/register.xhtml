@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+    <title>Register Page</title>
+    <link type="text/css" rel="stylesheet" href="./register.css" />
+</h:head>
+
+<h:body>
+    <div id="header" class="p-d-block">
+        <ui:insert name="header">
+            <ui:include src="/WEB-INF/decorators/header.xhtml" />
+        </ui:insert>
+    </div>
+
+    <h1 style="position: absolute; padding: 20px">Inregistrare</h1>
+
+
+    <h:form styleClass="form-class">
+
+        <h:outputLabel for="name" value="Name:" />
+        <br/>
+        <p:inputText id="name" value="#{registerBean.name}" required="true"
+                     requiredMessage="Trebuie să introduceți un nume."
+                     styleClass="input-field" />
+
+        <br/>
+
+        <h:outputLabel for="username" value="Username:" />
+        <br/>
+        <p:inputText id="username" value="#{registerBean.username}" required="true"
+                     requiredMessage="Trebuie să introduceți un username."
+                     styleClass="input-field" />
+
+        <br/>
+
+        <h:outputLabel for="password" value="Password:" />
+        <br/>
+        <p:password id="password" value="#{registerBean.password}" required="true"
+                    requiredMessage="Trebuie să introduceți o parolă."
+                    styleClass="input-field" />
+
+        <br/>
+
+        <h:panelGrid>
+            <h:outputLabel value="Role:"/>
+            <p:selectOneMenu id="optionUser" value="#{registerBean.userRole}">
+                <f:selectItem itemLabel="Select a role" itemValue="" />
+                <f:selectItems value="#{registerBean.availableRoles}"/>
+                <!-- Trigger AJAX update when role changes -->
+                <p:ajax update="extraFields" />
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <h:panelGroup id="extraFields">
+            <h:panelGrid rendered="#{registerBean.userRole eq 'STUDENT'}">
+                <!-- Year Field -->
+                <h:outputLabel for="year" value="Year:" />
+                <p:inputText id="year" value="#{registerBean.year}" required="true"
+                             requiredMessage="Trebuie să introduceți un an."
+                             styleClass="input-field" />
+                <!-- Semester Field -->
+                <h:outputLabel for="semester" value="Semester:" />
+                <p:inputText id="semester" value="#{registerBean.semester}" required="true"
+                             requiredMessage="Trebuie să introduceți un semestru."
+                             styleClass="input-field" />
+
+                <p:commandButton value="Register" action="#{registerBean.register}" update="messagesRegister"
+                                 style="margin-left: 50px;margin-top: 20px"/>
+
+            </h:panelGrid>
+
+            <h:panelGrid rendered="#{registerBean.userRole eq 'TEACHER'}">
+                <h:outputLabel value="Select courses:" />
+                <p:selectManyCheckbox id="courses" value="#{registerBean.coursesSelected}" layout="pageDirection">
+                    <f:selectItems value="#{registerBean.allCourses}" var="course" itemLabel="#{course}" itemValue="#{course}"/>
+                </p:selectManyCheckbox>
+
+                <p:commandButton value="Register" action="#{registerBean.register}" update="messagesRegister"
+                                 style="margin-left: 50px;margin-top: 20px"/>
+
+            </h:panelGrid>
+
+        </h:panelGroup>
+
+
+
+        <h:messages id="messagesRegister" showDetail="true" showSummary="false"
+                    infoClass="custom-info" errorClass="custom-error" styleClass="messages-class"/>
+
+
+
+    </h:form>
+
+
+</h:body>
+
+</html>

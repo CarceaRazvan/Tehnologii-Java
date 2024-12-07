@@ -1,0 +1,38 @@
+.form-class {
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
+
+}
+
+.custom-info {
+    color: green;
+    font-weight: bold;
+}
+
+.custom-error {
+    color: red;
+    font-weight: bold;
+
+}
+
+.custom-error, .custom-info {
+    list-style-type: none; /* Elimină bulinele din listă */
+    padding: 0;           /* Elimină spațiul implicit */
+    margin: 0 auto;       /* Centrare orizontală */
+    max-width: 300px;     /* Lățime fixă pentru a preveni extinderea */
+    margin-left: -40px;
+}
+
+
+.input-field {
+    margin-bottom: 10px; /* Setează marginea de jos */
+}
+
+.button-class {
+    width: fit-content;
+
+    text-align: center;
+    margin-left: 20px;
+
+}
