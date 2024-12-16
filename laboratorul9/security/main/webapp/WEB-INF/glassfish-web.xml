@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<glassfish-web-app>
+    <context-root>/laboratorul8-1.0-SNAPSHOT</context-root>
+
+    <security-role-mapping>
+        <role-name>role_admin</role-name>
+        <group-name>admin</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>role_teacher</role-name>
+        <group-name>teacher</group-name>
+    </security-role-mapping>
+
+    <security-role-mapping>
+        <role-name>role_student</role-name>
+        <group-name>student</group-name>
+    </security-role-mapping>
+
+
+</glassfish-web-app>

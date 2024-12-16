@@ -1,0 +1,28 @@
+.form-class {
+    max-width: fit-content;
+    margin: 0 auto;
+}
+
+.custom-info {
+    color: green;
+    font-weight: bold;
+}
+
+.custom-error {
+    color: red;
+    font-weight: bold;
+
+}
+
+.custom-error, .custom-info {
+    list-style-type: none; /* Elimină bulinele din listă */
+    padding: 0;           /* Elimină spațiul implicit */
+    margin: 0 auto;       /* Centrare orizontală */
+    max-width: 300px;     /* Lățime fixă pentru a preveni extinderea */
+    margin-left: -40px;
+}
+
+
+.input-field {
+    margin-bottom: 20px; /* Setează marginea de jos */
+}

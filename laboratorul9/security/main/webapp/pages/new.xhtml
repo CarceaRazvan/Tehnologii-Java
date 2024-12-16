@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+   <title>Evaluations</title>
+   <link type="text/css" rel="stylesheet" href="./view-evaluations.css" />
+   <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js" type="text/javascript"></script>
+   <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', async function () {
+         const token = localStorage.getItem('jwt_auth');
+
+         if (!token) {
+            window.location.href = '../index.xhtml'; // Redirect if no token
+            return;
+         }
+
+         const decoded = jwt_decode(token);
+         const teacherUsername = decoded.sub;  // Extract teacher username
+         const role = decoded.role;
+
+         if (role === 'STUDENT') {
+            window.location.href = '../index.xhtml';
+            return;
+         }
+
+         try {
+            // Fetch data from API
+            const url = `http://localhost:8080/laboratorul8-1.0-SNAPSHOT/api/evaluations/list?teacherUsername=`+teacherUsername+"&amp;role="+role;
+            const response = await fetch(url, {
+               method: 'GET',
+            });
+
+            if (response.ok) {
+               const evaluations = await response.json();
+               updateEvaluationsTable(evaluations);
+            } else {
+               console.error("Failed to fetch evaluations", response.status);
+               alert("Could not load evaluations.");
+            }
+         } catch (error) {
+            console.error("Error fetching evaluations:", error);
+            alert("Error fetching evaluations.");
+         }
+      });
+
+      function updateEvaluationsTable(evaluations) {
+         const tableBody = document.getElementById("evaluationsTableBody");
+         tableBody.innerHTML = ""; // Clear existing rows
+
+         evaluations.forEach(evaluation => {
+            const row = document.createElement("tr");
+
+            // Create and append each cell
+            row.appendChild(createCell(evaluation.registrationNumber || ''));
+            row.appendChild(createCell(evaluation.teacher?.name || ''));
+            row.appendChild(createCell(evaluation.course?.name || ''));
+            row.appendChild(createCell(evaluation.activity || ''));
+            row.appendChild(createCell(evaluation.grade || ''));
+            row.appendChild(createCell(evaluation.comment || ''));
+            row.appendChild(createCell(new Date(evaluation.createdAt).toLocaleString() || ''));
+
+            tableBody.appendChild(row);
+         });
+      }
+
+      // Helper function to create a table cell
+      function createCell(content) {
+         const cell = document.createElement("td");
+         cell.textContent = content; // Safely sets the text content, escaping special characters
+         return cell;
+      }
+   </script>
+</h:head>
+
+<h:body>
+
+   <h1>Your Evaluations</h1>
+   <table id="evaluationsTable" class="data-table">
+      <thead>
+      <tr>
+         <th>RN</th>
+         <th>Teacher Name</th>
+         <th>Course</th>
+         <th>Activity</th>
+         <th>Grade</th>
+         <th>Comment</th>
+         <th>Date</th>
+      </tr>
+      </thead>
+      <tbody id="evaluationsTableBody">
+      <!-- Rows will be populated dynamically -->
+      </tbody>
+   </table>
+   <h:panelGroup rendered="#{evaluationView.role == 'ADMIN'}">
+
+      <div style="margin-top: 50px">
+         <h1>Statistics</h1>
+         <p:dataTable value="#{evaluationView.teacherStatistics}" var="stats">
+
+            <!-- Teacher Name Column -->
+            <p:column headerText="Teacher">
+               <h:outputText value="#{stats.teacherName}" />
+            </p:column>
+
+            <!-- Average Grade Column -->
+            <p:column headerText="Average Grade">
+               <h:outputText value="#{stats.averageGrade}" />
+            </p:column>
+
+            <!-- Submission Count Column -->
+            <p:column headerText="Submission Count">
+               <h:outputText value="#{stats.submissionCount}" />
+            </p:column>
+         </p:dataTable>
+      </div>
+   </h:panelGroup>
+
+</h:body>
+
+</html>

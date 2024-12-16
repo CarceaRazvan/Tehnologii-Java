@@ -1,0 +1,388 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "My API",
+    "version": "1.0.0",
+    "description": "This is an example API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/laboratorul8-1.0-SNAPSHOT/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Evaluations",
+      "description": "Endpoints related to evaluations"
+    },
+    {
+      "name": "General",
+      "description": "General or default endpoints"
+    }
+  ],
+  "paths": {
+    "/hello-world": {
+      "get": {
+        "tags": ["General"],
+        "summary": "Hello World",
+        "operationId": "getHelloWorld",
+        "responses": {
+          "200": {
+            "description": "A Hello World response"
+          }
+        }
+      }
+    },
+    "/evaluations/send/{studentUsername}/{teacherName}/{courseName}/{activityName}/{grade}": {
+      "post": {
+        "tags": ["Evaluations"],
+        "summary": "Send an evaluation",
+        "operationId": "sendEvaluation",
+        "parameters": [
+          {
+            "name": "studentUsername",
+            "in": "path",
+            "required": true,
+            "description": "The username of the student",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "teacherName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the teacher",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "courseName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the course",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "activityName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the activity",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "grade",
+            "in": "path",
+            "required": true,
+            "description": "The grade awarded",
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "required": false,
+            "description": "Optional comment for the evaluation",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Evaluation submitted successfully"
+          },
+          "400": {
+            "description": "Failed to submit evaluation"
+          }
+        }
+      }
+    },
+
+    "/evaluations/list": {
+      "get": {
+        "tags": ["Evaluations"],
+        "summary": "Get evaluations for a teacher or admin",
+        "operationId": "getEvaluations",
+        "parameters": [
+          {
+            "name": "teacherUsername",
+            "in": "query",
+            "required": true,
+            "description": "Username of the teacher",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": true,
+            "description": "Role of the user (TEACHER or ADMIN)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of evaluations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Evaluation" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No evaluations found"
+          }
+        }
+      }
+    },
+
+    "/evaluations/{id}": {
+      "put": {
+        "tags": ["Evaluations"],
+        "summary": "Replace an existing evaluation by ID",
+        "operationId": "replaceEvaluation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the evaluation to be replaced",
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceEvaluation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Evaluation updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Evaluation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Evaluation not found with the provided ID"
+          },
+          "400": {
+            "description": "Invalid input data"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Evaluations"],
+        "summary": "Delete an evaluation by ID",
+        "operationId": "deleteEvaluation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the evaluation to be deleted",
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Evaluation deleted successfully"
+          },
+          "400": {
+            "description": "Failed to delete evaluation"
+          },
+          "404": {
+            "description": "Evaluation not found with the provided ID"
+          }
+        }
+      }
+    },
+
+    "/evaluations/generate-random/{teacherUsername}/{courseName}": {
+      "post": {
+        "tags": ["Evaluations"],
+        "summary": "Generate a random evaluation for a teacher and course",
+        "operationId": "generateRandomEvaluation",
+        "parameters": [
+          {
+            "name": "teacherUsername",
+            "in": "path",
+            "required": true,
+            "description": "The username of the teacher",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "courseName",
+            "in": "path",
+            "required": true,
+            "description": "The name of the course",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sentiment",
+            "in": "query",
+            "required": true,
+            "description": "Sentiment of the evaluation (negative, neutral, positive)",
+            "schema": { "type": "string", "enum": ["negative", "neutral", "positive"] }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Random evaluation generated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Evaluation" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or failed to generate evaluation"
+          }
+        }
+      }
+    },
+
+    "/evaluations/analyze-sentiment/{teacherUsername}": {
+      "get": {
+        "tags": ["Evaluations"],
+        "summary": "Analyze Teacher Sentiment",
+        "operationId": "analyzeTeacherSentiment",
+        "parameters": [
+          {
+            "name": "teacherUsername",
+            "in": "path",
+            "required": true,
+            "description": "The username of the teacher whose sentiment is to be analyzed.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sentiment analysis report for the teacher.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "The sentiment for teacher JohnDoe is overwhelmingly positive, with a 90% positive feedback score."
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request due to invalid teacher username or processing error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Invalid teacher username provided."
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+
+
+  },
+
+  "components": {
+    "schemas": {
+      "Evaluation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "student": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "format": "int64" },
+              "name": { "type": "string" },
+              "username": { "type": "string" }
+            }
+          },
+          "teacher": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "format": "int64" },
+              "name": { "type": "string" },
+              "username": { "type": "string" }
+            }
+          },
+          "course": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "format": "int64" },
+              "name": { "type": "string" }
+            }
+          },
+          "activity": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "integer"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "registrationNumber": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "student", "teacher", "course", "activity", "grade", "createdAt"]
+      },
+
+      "ReplaceEvaluation": {
+        "type": "object",
+        "properties": {
+          "student": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "format": "int64" }
+            }
+          },
+          "teacher": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "format": "int64" }
+            }
+          },
+          "course": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer", "format": "int64" }
+            }
+          },
+          "activity": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "integer"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "registrationNumber": {
+            "type": "string"
+          }
+        },
+        "required": ["student", "teacher", "course", "activity", "grade"]
+      }
+    }
+  }
+}

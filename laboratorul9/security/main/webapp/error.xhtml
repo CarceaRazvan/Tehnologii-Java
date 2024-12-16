@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+
+   <h2>An unexpected error occurred!</h2>
+   <h:outputText value="Sorry, but we encountered an issue while processing your request." /><br/>
+   <h:outputText value="Error details: " />
+   <h:outputText value="#{exception.message}" rendered="#{not empty exception}" />
+
+   <h:form>
+      <h:commandButton value="Go Back" action="index.xhtml" />
+   </h:form>
+
+</h:body>
+</html>

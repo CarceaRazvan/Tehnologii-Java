@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                                  https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+
+
+
+<!--   login page -->
+
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/pages/register.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/pages/profile.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>evaluate</from-outcome>
+            <to-view-id>/pages/student/evaluate.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>view-evaluations</from-outcome>
+            <to-view-id>/pages/teacher_admin/view-evaluations.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <!--   register page -->
+    <navigation-rule>
+        <from-view-id>/pages/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/pages/register.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/pages/profile.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>evaluate</from-outcome>
+            <to-view-id>/pages/student/evaluate.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>view-evaluations</from-outcome>
+            <to-view-id>/pages/teacher_admin/view-evaluations.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!--    profile-->
+
+    <navigation-rule>
+        <from-view-id>/pages/profile.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/profile.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/pages/register.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/profile.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/pages/profile.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/profile.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>evaluate</from-outcome>
+            <to-view-id>/pages/student/evaluate.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/profile.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>view-evaluations</from-outcome>
+            <to-view-id>/pages/teacher_admin/view-evaluations.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+<!--    evaluate -->
+
+    <navigation-rule>
+        <from-view-id>/pages/student/evaluate.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/student/evaluate.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/pages/register.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/student/evaluate.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/pages/profile.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/student/evaluate.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>evaluate</from-outcome>
+            <to-view-id>/pages/student/evaluate.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/student/evaluate.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>view-evaluations</from-outcome>
+            <to-view-id>/pages/teacher_admin/view-evaluations.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+<!--   view-evaluations -->
+
+    <navigation-rule>
+        <from-view-id>/pages/teacher_admin/view-evaluations.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/teacher_admin/view-evaluations.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/pages/register.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/teacher_admin/view-evaluations.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profile</from-outcome>
+            <to-view-id>/pages/profile.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/teacher_admin/view-evaluations.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>evaluate</from-outcome>
+            <to-view-id>/pages/student/evaluate.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/teacher_admin/view-evaluations.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>view-evaluations</from-outcome>
+            <to-view-id>/pages/teacher_admin/view-evaluations.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+</faces-config>

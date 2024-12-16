@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+    <title>Evaluate Page</title>
+    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/evaluate.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obține token-ul din localStorage
+            const token = localStorage.getItem('jwt_auth');
+
+            const decoded = jwt_decode(token);
+
+            const studentUsername = decoded.sub;
+            document.getElementById("evaluateForm:studentUsername").value = studentUsername;
+        });
+    </script>
+</h:head>
+
+<h:body>
+
+    <div id="header" class="p-d-block">
+        <ui:insert name="header">
+            <ui:include src="/WEB-INF/decorators/header.xhtml" />
+        </ui:insert>
+    </div>
+
+    <h1 style="position: absolute; padding: 20px">Evaluate Teacher</h1>
+    <h3 style="position: absolute; margin-top: 70px; padding: 20px">
+        Time Range
+    </h3>
+    <div style="position: absolute; margin-top: 100px; padding: 20px">#{evaluationConfig.formattedStartDate} - #{evaluationConfig.formattedEndDate} </div>
+
+    <h:form id="evaluateForm" styleClass="form-class">
+
+        <h:inputHidden id="studentUsername" value="#{evaluateBean.studentUsername}" />
+
+
+        <h:panelGrid>
+            <h:outputLabel value="Teacher:"/>
+            <p:selectOneMenu id="Teacher" value="#{evaluateBean.teacherName}">
+                <f:selectItem itemLabel="Select a teacher" itemValue="" />
+                <f:selectItems value="#{evaluateBean.allTeachersNames}"/>
+                <!-- Trigger AJAX update when role changes -->
+                <p:ajax update="extraFieldsCourse" />
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <h:panelGroup id="extraFieldsCourse">
+            <h:panelGrid rendered="#{not empty evaluateBean.teacherName}">
+                <h:outputLabel value="Course:"/>
+                <p:selectOneMenu id="Course" value="#{evaluateBean.courseName}">
+                    <f:selectItem itemLabel="Select a course" itemValue="" />
+                    <f:selectItems value="#{evaluateBean.teacherCourses}"/>
+
+                    <p:ajax update="extraFieldsActivity" />
+
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </h:panelGroup>
+
+        <h:panelGroup id="extraFieldsActivity">
+            <h:panelGrid rendered="#{not empty evaluateBean.courseName}">
+                <!-- Year Field -->
+                <h:outputLabel value="Activity:"/>
+                <p:selectOneMenu id="Activity" value="#{evaluateBean.activityName}">
+                    <f:selectItem itemLabel="Select a activity" itemValue="" />
+                    <f:selectItems value="#{evaluateBean.activities}"/>
+
+                    <p:ajax update="extraFieldsMore" />
+
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+        </h:panelGroup>
+
+        <h:panelGroup id="extraFieldsMore">
+            <h:panelGrid rendered="#{not empty evaluateBean.activityName}">
+                <!-- Year Field -->
+                <h:outputLabel value="Grade:"/>
+                <h:panelGrid columns="1" style="margin-bottom: 10px">
+                    <p:inputText id="txt5" value="#{evaluateBean.grade}"/>
+                    <p:slider for="txt5" minValue="1" maxValue="10">
+
+                    </p:slider>
+                </h:panelGrid>
+
+                <h:outputLabel value="Comment:"/>
+                <p:inputTextarea rows="6" cols="25" value="#{evaluateBean.comment}"/>
+
+                <p:commandButton value="Evaluate" action="#{evaluateBean.evaluate}" update="messagesEvaluate"
+                                 style="margin-left: 50px;margin-top: 20px"/>
+
+
+            </h:panelGrid>
+
+        </h:panelGroup>
+
+
+        <h:messages id="messagesEvaluate" showDetail="true" showSummary="false"
+                    infoClass="custom-info" errorClass="custom-error" />
+
+
+    </h:form>
+
+
+</h:body>
+
+</html>
