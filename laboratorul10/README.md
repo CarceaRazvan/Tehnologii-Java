@@ -4,7 +4,7 @@
 
 ### a) Fallback + Timeout si Retry
 
-Clasa [FaultToleranceController.java](FaultToleranceController.java)
+### Clasa [FaultToleranceController.java](FaultToleranceController.java)
 
 ### Endpoint-ul: /resilience/timeout
 
@@ -36,7 +36,6 @@ Acest exemplu evidențiază modul în care MicroProfile gestionează operațiuni
 
 ### Clasa [CircuitBreakerController.java](CircuitBreakerController.java)
 
-
 ### Endpoint-ul definit: /circuit
 
 Metoda principală simulateCircuitBreakers este protejată de un circuit breaker configurat prin adnotarea @CircuitBreaker.
@@ -45,7 +44,6 @@ Simulează o eroare utilizând metoda auxiliară shouldFail.
 ### c) Bulkhead thread-pool
 
 ### Clasa [BulkheadController.java](BulkheadController.java)
-
 
 ### Endpoint-ul definit: /bulkhead
 
@@ -80,7 +78,7 @@ Oferă un răspuns alternativ (fallback) atunci când limitele sunt depășite.
 
 ## 2. Implementați și testați o procedură de verificare a stării de sănătate, pentru a determina gradul de pregătire și vitalitatea serviciului dumneavoastră.
 
-Clasa [ServiceReadyHealthCheck.java](ServiceReadyHealthCheck.java)
+### Clasa [ServiceReadyHealthCheck.java](ServiceReadyHealthCheck.java)
 
 ### Adnotarea @Readiness:
 
