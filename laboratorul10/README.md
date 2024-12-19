@@ -34,7 +34,8 @@ Acest exemplu evidențiază modul în care MicroProfile gestionează operațiuni
 
 ### b) CircuitBreaker
 
-### Clasa CircuitBreakerController
+### Clasa [CircuitBreakerController.java](CircuitBreakerController.java)
+
 
 ### Endpoint-ul definit: /circuit
 
@@ -43,7 +44,8 @@ Simulează o eroare utilizând metoda auxiliară shouldFail.
 
 ### c) Bulkhead thread-pool
 
-### Clasa BulkheadController
+### Clasa [BulkheadController.java](BulkheadController.java)
+
 
 ### Endpoint-ul definit: /bulkhead
 
@@ -69,7 +71,7 @@ Se poate observa ca doar 5 din cele 7 cereri au fost realizate cu succes.
 
 ### d)  Bulkhead semaphore
 
-### Clasa SemaphoreBulkheadController
+### Clasa [SemaphoreBulkheadController.java](SemaphoreBulkheadController.java)
 
 ### Endpoint-ul definit: /semaphore-bulkhead
 
@@ -78,7 +80,7 @@ Oferă un răspuns alternativ (fallback) atunci când limitele sunt depășite.
 
 ## 2. Implementați și testați o procedură de verificare a stării de sănătate, pentru a determina gradul de pregătire și vitalitatea serviciului dumneavoastră.
 
-Clasa ServiceReadyHealthCheck
+Clasa [ServiceReadyHealthCheck.java](ServiceReadyHealthCheck.java)
 
 ### Adnotarea @Readiness:
 
@@ -90,7 +92,7 @@ Metoda call(), care definește logica verificării de sănătate.
 
 ## 3 Utilizați API-ul MicroProfile Metrics pentru a monitoriza comportamentul serviciului dvs. Analizați numărul de invocări și timpul de răspuns pentru cel puțin o metodă.
 
-### Clasa MetricController:
+### Clasa [MetricController.java](MetricController.java)
 
 ### Endpoint-ul definit: /timed.
 Expune o metodă care este monitorizată pentru numărul de invocări și timpul de răspuns.
