@@ -4,7 +4,7 @@
 
 ### a) Fallback + Timeout si Retry
 
-Clasa [FaultToleranceController.java](/FaultToleranceController.java)
+Clasa [FaultToleranceController.java](FaultToleranceController.java)
 
 ### Endpoint-ul: /resilience/timeout
 
