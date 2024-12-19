@@ -106,3 +106,24 @@ Măsoară automat timpul de execuție al metodei timedRequest().
 Definește un punct de monitorizare pentru un indicator calculat, în acest caz, numărul actual de invocări din Counter.
 
 ![image](https://github.com/user-attachments/assets/e12bfcc4-d2a1-494f-81c1-caf801807742)
+
+## 4 Creați un container Docker pentru un microserviciu.
+
+Dockerfile [Dockerfile](Dockerfile)
+
+### Imagine de bază:
+
+Se utilizează o imagine Open Liberty optimizată pentru Java 11, configurată pentru a rula aplicații Java EE și MicroProfile.
+
+### Configurarea aplicației:
+
+Fișierele de configurare ale serverului și aplicația (.war) sunt copiate în container.
+Se instalează funcționalitățile necesare și se finalizează configurarea serverului.
+
+### Construcția imaginii:
+
+Imaginea Docker este creată folosind comanda docker build și etichetată cu un nume specific.
+
+### Rularea containerului:
+
+Containerul este pornit cu docker run, expunând porturile necesare pentru accesul HTTP/HTTPS.
