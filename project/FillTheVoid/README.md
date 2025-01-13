@@ -3,8 +3,8 @@
 ## Cuprins
 
 - [Introducere](#introducere)
-- [Funcționalități](#funcționalități)
-    - [Detalii suplimentare](#detalii-suplimentare)
+- [Tehnologii folosite](#tehnologii-folosite)
+    - [Autentificare și autorizare JWT (Spring Security)](#autentificare-și-autorizare-jwt-spring-security)
 - [Instalare](#instalare)
 - [Utilizare](#utilizare)
 
@@ -13,10 +13,17 @@ Aplicația "Fill in the Void" oferă două funcționalități principale: restau
 
 ### Backend-ul aplicației este construit folosind Java și framework-ul Spring.
 
-## Funcționalități (Backend)
+## Tehnologii folosite
 Lista cu ce poate face proiectul:
-- Funcție 1
-- Funcție 2
+- ### Autentificare și autorizare JWT (Spring Security)
+- Gestionarea relației dintre obiecte Java și bazele de date relaționale (Java Persistence API (JPA))
+- Arhitectura Model-View-Controller (Spring MVC)
+- Servicii REST
+- Design Patterns
+- Folosirea unui script Python pentru integrarea cu partea de AI
+- Aspect-Oriented Programming (AOP) folosind AspectJ
+- Monitor-Oriented Programming (MOP)
+- Testare funcțională (Unit Testing)
 
 ### Detalii suplimentare
 Explicații mai detaliate despre funcționalități.
