@@ -15,7 +15,7 @@ Aplicația "Fill in the Void" oferă două funcționalități principale: restau
 
 ## Tehnologii folosite
 Lista cu ce poate face proiectul:
-- ### Autentificare și autorizare JWT (Spring Security)
+- Autentificare și autorizare JWT (Spring Security)
 - Gestionarea relației dintre obiecte Java și bazele de date relaționale (Java Persistence API (JPA))
 - Arhitectura Model-View-Controller (Spring MVC)
 - Servicii REST
@@ -24,6 +24,9 @@ Lista cu ce poate face proiectul:
 - Aspect-Oriented Programming (AOP) folosind AspectJ
 - Monitor-Oriented Programming (MOP)
 - Testare funcțională (Unit Testing)
+
+## Autentificare și autorizare JWT (Spring Security)
+
 
 ### Detalii suplimentare
 Explicații mai detaliate despre funcționalități.
