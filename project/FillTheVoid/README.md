@@ -5,6 +5,7 @@
 - [Introducere](#introducere)
 - [Tehnologii folosite](#tehnologii-folosite)
     - [Autentificare și autorizare JWT (Spring Security)](#autentificare-și-autorizare-jwt-spring-security)
+    - [Java Persistence API (JPA)](#java-persistence-api-jpa)
 - [Instalare](#instalare)
 - [Utilizare](#utilizare)
 
@@ -95,8 +96,60 @@ Spring Security este un framework de autentificare și control al accesului pute
 
     Prin intermediul librăriei JWT, se utilizează cheia de semnare specificată pentru a valida și decripta tokenul primit. Ulterior, se extrage și se returnează toate revendicările din corpul tokenului, oferind astfel acces la informații.
 
-  
 
+## Java Persistence API (JPA)
+
+Include și Hibernate, care este una dintre cele mai populare implementări de JPA, fiind un framework care contribuie la maparea obiectelor Java la tabelele unei baze de date relaționale și gestionează operațiunile de tip CRUD (Create, Read, Update, Delete).
+
+### Object-Relational Mapping (ORM) [Gallery.java](./src/main/java/com/taip/FillTheVoid/gallery/Gallery.java)
+
+JPA oferă adnotări standardizate pentru maparea claselor și atributelor Java la tabele și coloane dintr-o bază de date relațională. De exemplu:
+
+- @Entity marchează o clasă ca entitate JPA.
+- @Table controlează denumirea și constrângerile tabelului asociat.
+- @Column ajustează proprietățile unei coloane (nume, unicitate, nullable etc.).
+
+Hibernate extinde aceste adnotări cu caracteristici suplimentare.
+
+**Gestionarea relațiilor între entități**
+
+- Relațiile pot fi modelate cu
+    - @OneToOne
+    - @OneToMany
+    - @ManyToOne
+    - @ManyToMany
+  
+Exemple:
+
+În clasa Gallery, relația @ManyToMany între galerii și picturi este mapată folosind o tabelă intermediară (gallery_painting).
+
+Relația @ManyToOne cu Owner reprezintă o relație proprietar-galerie.
+
+### Facilitarea accesului la baza de date [GalleryRepository.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryRepository.java)
+
+- JpaRepository este o interfață centrală din cadrul Spring Data JPA, care oferă funcționalități pentru gestionarea de metode pentru operații CRUD (Create, Read, Update, Delete) și gestionarea entităților.
+
+**Operații CRUD Standard**
+
+- JpaRepository oferă metode implicite pentru operațiile esențiale de manipulare a entităților:
+
+    - save(S entity) – Salvează sau actualizează o entitate.
+    - findById(ID id) – Găsește o entitate după ID.
+    - delete(T entity) – Șterge o entitate.
+    - existsById(ID id) – Verifică existența unei entități după ID.
+
+**Suport pentru Interogări Personalizate**
+
+- JpaRepository permite utilizarea interogărilor scrise în JPQL sau SQL nativ prin adnotarea @Query.
+
+**Integrare cu Tranzacțiile**
+
+- JpaRepository funcționează perfect cu mecanismul tranzacțional din Spring, permițând utilizarea adnotărilor precum @Transactional și @Modifying.
+
+  
+    1. Adnotarea @Transactional este utilizată pentru a defini limitele unei tranzacții în cadrul aplicațiilor bazate pe Spring. O tranzacție reprezintă o unitate atomică de lucru care garantează consistența și integritatea datelor.
+
+    2. Adnotarea @Modifying este utilizată împreună cu @Query pentru a specifica că o interogare personalizată afectează datele (e.g., INSERT, UPDATE, DELETE). Este necesară pentru metodele care modifică datele în baza de date.
 
 ### Detalii suplimentare
 Explicații mai detaliate despre funcționalități.
