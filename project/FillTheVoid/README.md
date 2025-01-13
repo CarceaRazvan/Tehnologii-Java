@@ -51,7 +51,7 @@ Spring Security este un framework de autentificare și control al accesului pute
   2. Managementul sesiunilor de utilizator și al autentificării este integrat nativ cu fluxurile și controalele MVC.
   3. Suport pentru filtre și interceptoare în cadrul lanțului de filtre al Spring MVC pentru a aplica politici de securitate înainte de a ajunge la controllere.
  
-## Configurarea Securității Web cu JWT
+## Configurarea Securității Web cu JWT [SecurityConfiguration.java](./src/main/java/com/taip/FillTheVoid/config/SecurityConfiguration.java)
 
 ### Adnotări de Configurare
 
@@ -66,11 +66,11 @@ Spring Security este un framework de autentificare și control al accesului pute
 
     Reprezintă un filtru personalizat de autentificare bazat pe JWT (JSON Web Token). Scopul său este de a procesa tokenurile JWT din cererile HTTP, verificând validitatea acestora și autentificând utilizatorul pe baza informațiilor din token.
 
-3. Providerul de Autentificare
+3. Providerul de Autentificare [ApplicationConfig.java](./src/main/java/com/taip/FillTheVoid/config/ApplicationConfig.java)
 
     Este responsabil pentru gestionarea procesului de autentificare a utilizatorilor. AuthenticationProvider validează detaliile de autentificare (cum ar fi utilizatorul și parola) și produce un token de autentificare complet pentru utilizatorul autentificat. Acesta este configurat să utilizeze baza de date, pentru verificarea autentificării.
 
-### Generarea și validarea token-urilor JWT
+### Generarea și validarea token-urilor JWT [RealJwtService.java](./src/main/java/com/taip/FillTheVoid/config/proxy/RealJwtService.java)
 
 - Configurare și Inițializare
 
