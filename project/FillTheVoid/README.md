@@ -6,6 +6,7 @@
 - [Tehnologii folosite](#tehnologii-folosite)
     - [Autentificare și autorizare JWT (Spring Security)](#autentificare-și-autorizare-jwt-spring-security)
     - [Java Persistence API (JPA)](#java-persistence-api-jpa)
+    - [Arhitectura Model-View-Controller (Spring MVC)](#arhitectura-model-view-controller-spring-mvc)
 - [Instalare](#instalare)
 - [Utilizare](#utilizare)
 
@@ -150,6 +151,31 @@ Relația @ManyToOne cu Owner reprezintă o relație proprietar-galerie.
     1. Adnotarea @Transactional este utilizată pentru a defini limitele unei tranzacții în cadrul aplicațiilor bazate pe Spring. O tranzacție reprezintă o unitate atomică de lucru care garantează consistența și integritatea datelor.
 
     2. Adnotarea @Modifying este utilizată împreună cu @Query pentru a specifica că o interogare personalizată afectează datele (e.g., INSERT, UPDATE, DELETE). Este necesară pentru metodele care modifică datele în baza de date.
+ 
+## Arhitectura Model-View-Controller (Spring MVC)
+
+Spring MVC este un sub-framework care permite dezvoltarea de aplicații web folosind arhitectura Model-View-Controller. Aceasta separă clar logica de prezentare de logica de business și de modelul de date, facilitând astfel dezvoltarea și întreținerea aplicațiilor web.
+
+![MVC](https://github.com/user-attachments/assets/24368a38-e253-4d9b-92b8-b03d41b5441f)
+
+**Separarea responsabilităților**
+
+- Model: Clasele de entitate și repository-urile.
+    - [Gallery.java](./src/main/java/com/taip/FillTheVoid/gallery/Gallery.java)
+    - [GalleryRepository.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryRepository.java)
+- View: Deoarece este o aplicație RESTful, view-ul este înlocuit cu răspunsurile JSON generate de controlor.
+- Controller: Gestionează cererile HTTP și direcționează apelurile către Service.
+    - [GalleryController.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryController.java)
+
+  - definit cu @RestController. Expune endpoint-uri prin care utilizatorii pot interacționa cu aplicația, cum ar fi:
+    - @PostMapping pentru adăugarea unei galerii.
+    - @GetMapping pentru obținerea galeriilor.
+    - @PutMapping pentru editarea unei galerii.
+    - @DeleteMapping pentru ștergerea unei galerii.
+   
+  - [GalleryService.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryService.java) 
+
+  - Adnotarea @Service în Spring este utilizată pentru a marca o clasă ca fiind un bean de serviciu (service bean). Aceasta indică faptul că respectiva clasă conține logica de business și este gestionată de containerul Spring ca parte a ciclului de viață al aplicației.
 
 ### Detalii suplimentare
 Explicații mai detaliate despre funcționalități.
