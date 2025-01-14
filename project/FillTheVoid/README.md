@@ -329,7 +329,7 @@ Testul creat: [GalleryServiceMonitorTests.java](./src/test/java/com/taip/FillThe
 Aceste teste acoperă mai multe stări ale comportamentului monitorului **GalleryServiceMonitor**. Mai precis, ele verifică funcționalitatea 
 și corectitudinea diverselor metode din acest monitor, inclusiv logarea, validarea datelor și tratarea excepțiilor.
 
-### Verificarea controller-ului asociat cu entitatea Gallery (folosind AI)
+### Verificarea controller-ului asociat cu entitatea Gallery
 
 Clasa testată: [GalleryController.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryController.java)
 
