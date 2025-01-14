@@ -9,8 +9,10 @@
     - [Arhitectura Model-View-Controller (Spring MVC)](#arhitectura-model-view-controller-spring-mvc)
     - [Servicii REST](#servicii-rest)
     - [Design Patterns](#design-patterns)
-- [Instalare](#instalare)
-- [Utilizare](#utilizare)
+    - [Script Python pentru integrarea cu partea de AI](#script-python-pentru-integrarea-cu-partea-de-ai)
+    - [Aspect-Oriented Programming (AOP)](#aspect-oriented-programming-aop)
+    - [Monitor-Oriented Programming (MOP)](#monitor-oriented-programming-mop)
+    - [Testare funcțională (Unit Testing)](#testare-funcțională-unit-testing)
 
 ## Introducere
 Aplicația "Fill in the Void" oferă două funcționalități principale: restaurarea artefactelor din imagini și vizualizarea lor într-un spațiu 3D interactiv. Utilizatorii pot încărca imagini deteriorate pentru a fi restaurate, iar rezultatele pot fi descărcate, salvate sau incluse în albume personalizate. Aceste albume pot fi explorate într-o galerie virtuală, oferind o experiență imersivă în care picturile restaurate sunt expuse pe pereți, similar unui muzeu. Aplicația permite editarea imaginilor, organizarea lor în albume și partajarea rezultatelor, consolidând astfel rolul utilizatorilor ca păstrători ai artei și patrimoniului cultural.
@@ -18,7 +20,6 @@ Aplicația "Fill in the Void" oferă două funcționalități principale: restau
 ### Backend-ul aplicației este construit folosind Java și framework-ul Spring.
 
 ## Tehnologii folosite
-Lista cu ce poate face proiectul:
 - Autentificare și autorizare JWT (Spring Security)
 - Gestionarea relației dintre obiecte Java și bazele de date relaționale (Java Persistence API (JPA))
 - Arhitectura Model-View-Controller (Spring MVC)
@@ -195,12 +196,138 @@ REST (Representational State Transfer) este un tip de arhitectură care vine în
 
 [Proxy](../design-patterns/proxy/README.md) 
 
+## Script Python pentru integrarea cu partea de AI
 
-### Detalii suplimentare
-Explicații mai detaliate despre funcționalități.
+[RestorationService.java](./src/main/java/com/taip/FillTheVoid/restoration/RestorationService.java) 
 
-## Instalare
-Instrucțiuni de instalare.
+[restoration.py](./src/main/java/com/taip/FillTheVoid/restoration/restoration.py) 
 
-## Utilizare
-Cum să folosești proiectul.
+Această funcționalitate permite rularea unui script Python dintr-un proiect Java pentru a efectua o operație de restaurare bazată pe inteligență artificială. Scriptul Python este utilizat pentru a procesa datele primite de la serverul Java și pentru a returna rezultatele restaurării într-un format accesibil serverului.
+
+Scriptul Python primește modelul selectat și coordonatele colțurilor, efectuează procesarea pe imagine și returnează rezultatul ca imagine restaurată salvată într-un fișier.
+
+### Pași principali:
+
+- Detectarea sistemului de operare:
+    Determină dacă aplicația rulează pe Windows sau pe alt sistem de operare (de exemplu, Linux/MacOS). În funcție de sistem, setează calea executabilului Python utilizat (dintr-un mediu virtual Python).
+
+- Pregătirea scriptului și a datelor:
+
+    Setează calea către scriptul Python care implementează logica de restaurare.
+    Convertă obiectul CornersList într-un format JSON (prin metoda convertCornersToJson) pentru a fi transmis scriptului Python ca parametru.
+  
+    Construirea comenzii de rulare:
+    - Creează o comandă care rulează executabilul Python cu scriptul specificat și argumentele necesare (selectedModel și datele JSON).
+
+- Executarea scriptului Python:
+
+    Inițiază scriptul utilizând un ProcessBuilder.
+  
+    - ProcessBuilder creează un proces nou prin specificarea comenzii și a argumentelor necesare pentru a rula un program extern (în acest caz, scriptul Python).
+    - De asemenea, oferă metode pentru:
+
+        - Configurarea directorului de lucru.
+        - Redirecționarea intrărilor și ieșirilor.
+        - Gestionarea fluxurilor de date (standard output și standard error).
+          
+## Aspect-Oriented Programming (AOP)
+
+[PaintingServiceAspect.java](./src/main/java/com/taip/FillTheVoid/painting/PaintingServiceAspect.java) 
+
+![image](https://github.com/user-attachments/assets/e051278a-b0f3-4622-8066-ed6a85876dc6)
+
+
+AOP este o tehnică care permite separarea unor preocupări transversale (cross-cutting concerns) de logica principală a aplicației. Acest lucru înseamnă că putem implementa funcționalități care se aplică în mod uniform în mai multe locuri din aplicație (de exemplu, logare, gestionarea tranzacțiilor, securitate), fără a introduce cod redundant în metodele principale.
+
+În acest caz, codul definește un aspect numit PaintingServiceAspect, care aplică funcționalități de tip AOP asupra metodelor din clasa PaintingService.
+
+### Adnotări importante
+
+1. @Aspect:
+   
+    Indică faptul că această clasă este un aspect, adică conține logică ce trebuie aplicată pe anumite puncte din codul aplicației.
+
+3. @Component:
+   
+    Declară aspectul ca fiind un bean gestionat de Spring, astfel încât acesta să fie detectat automat și să funcționeze în contextul aplicației.
+
+5. @Pointcut:
+   
+    Definește o expresie care identifică un grup de metode țintă. De exemplu, în cod se aplică pe toate metodele din clasa PaintingService.
+
+6. @Before:
+   
+    Execută logică înainte ca metoda țintă să fie apelată. În acest caz, metoda logAddPaintingDetails este apelată înainte de metoda addPainting.
+
+7. @AfterReturning:
+   
+    Se execută după ce o metodă se finalizează cu succes. În acest caz, loghează detalii despre metoda apelată și rezultatul său.
+
+8. @AfterThrowing:
+   
+    Capturează excepțiile aruncate de metoda țintă, permițând logarea sau tratarea lor.
+
+## Monitor-Oriented Programming (MOP)
+
+[PaintingServiceMonitor.java](./src/main/java/com/taip/FillTheVoid/painting/PaintingServiceMonitor.java) 
+
+MOP este un model de programare conceput pentru a introduce mecanisme de observare, validare și logare în cadrul aplicațiilor, fără a afecta logica de bază.
+
+### @Around
+
+MOP: Utilizează și @Around pentru a interveni în execuția metodei, modificând parametrii, rezultatele sau comportamentul.
+
+### În cazul de față, PaintingServiceMonitor:
+
+- Validează și corectează datele
+    Asigură că author și description primesc valori implicite dacă sunt null sau goale.
+
+- Generează nume unice
+    Creează automat un nume unic pentru picturile care sunt adăugate cu același nume, prevenind conflictele.
+    Astfel, monitorul ajută la menținerea consistenței datelor și la evitarea erorilor, intervenind acolo unde este necesar pentru a îmbunătăți robustețea aplicației.
+
+## Testare funcțională (Unit Testing)
+
+### Unit testing pentru Componenta Gallery
+
+Componenta Gallery reprezintă o entitate a unei galerii într-un sistem de artă, unde galeriile pot conține picturi \
+și sunt deținute de un anumit utilizator (Owner). Este legată de entitățile Painting și Owner printr-o structură de \
+baze de date relaționale.
+
+### Verificarea repository-ului (gestionarea accesului la date) asociat cu entitatea Gallery
+
+Clasa testată: [GalleryRepository.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryRepository.java)
+
+Testul creat: [GalleryRepositoryTests.java](./src/test/java/com/taip/FillTheVoid/gallery/GalleryRepositoryTests.java)
+
+Ele acoperă operațiuni de bază cum ar fi salvarea, gestionarea erorilor și căutarea, \
+asigurându-se că interacțiunile cu baza de date sunt conforme cu așteptările. Prin testarea acestor \
+metode, se garantează că aplicația se comportă corect la nivelul cel mai apropiat cu baza de date.
+
+### Verificarea serviciului asociat cu entitatea Gallery
+
+Clasa testată: [GalleryService.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryService.java)
+
+Testul creat: [GalleryServiceTests.java](./src/test/java/com/taip/FillTheVoid/gallery/GalleryServiceTests.java)
+
+Aceste teste acoperă operațiuni esențiale ale serviciului GalleryService, cum ar fi adăugarea, obținerea, actualizarea și \
+ștergerea galeriilor, asigurându-se că interacțiunile cu serviciile și componentele aplicației se realizează conform așteptărilor. \
+Verificarea comportamentului serviciilor garantează că aplicația funcționează corect la nivelul logicii de business și al manipulării entităților.
+
+### Verificarea monitorului asociat cu entitatea Gallery
+
+Clasa testată: [GalleryServiceMonitor.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryServiceMonitor.java)
+
+Testul creat: [GalleryServiceMonitorTests.java](./src/test/java/com/taip/FillTheVoid/gallery/GalleryServiceMonitorTests.java)
+
+Aceste teste acoperă mai multe stări ale comportamentului monitorului **GalleryServiceMonitor**. Mai precis, ele verifică funcționalitatea 
+și corectitudinea diverselor metode din acest monitor, inclusiv logarea, validarea datelor și tratarea excepțiilor.
+
+### Verificarea controller-ului asociat cu entitatea Gallery (folosind AI)
+
+Clasa testată: [GalleryController.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryController.java)
+
+Testul creat: [GalleryControllerTests.java](./src/test/java/com/taip/FillTheVoid/gallery/GalleryControllerTests.java)
+
+Aceste teste acoperă principalele metode ale controller-ului GalleryController, care interacționează cu serviciul GalleryService. 
+Mai exact, testele sunt axate pe verificarea integrării dintre controller și serviciul care gestionează galeriile.
