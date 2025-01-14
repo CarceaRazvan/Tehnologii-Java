@@ -188,8 +188,11 @@ REST (Representational State Transfer) este un tip de arhitectură care vine în
 ## Design Patterns
 
 [Factory Method](../design-patterns/factory-method/README.md) 
+
 [Decorator](../design-patterns/decorator/README.md) 
+
 [Iterator](../design-patterns/iterator/README.md) 
+
 [Proxy](../design-patterns/proxy/README.md) 
 
 
