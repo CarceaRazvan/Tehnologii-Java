@@ -34,6 +34,9 @@ Aplicația "Fill in the Void" oferă două funcționalități principale: restau
 
 Spring Security este un framework de autentificare și control al accesului puternic și extrem de personalizabil. Reprezintă standardul pentru securizarea aplicațiilor bazate pe Spring.
 
+![image](https://github.com/user-attachments/assets/c62f002c-651f-4ff2-a4a7-6b069094f736)
+
+
 ### Caracteristici
 
 - Suport cuprinzător și extensibil pentru autentificare și autorizare
@@ -104,6 +107,9 @@ Spring Security este un framework de autentificare și control al accesului pute
 ## Java Persistence API (JPA)
 
 Include și Hibernate, care este una dintre cele mai populare implementări de JPA, fiind un framework care contribuie la maparea obiectelor Java la tabelele unei baze de date relaționale și gestionează operațiunile de tip CRUD (Create, Read, Update, Delete).
+
+![image](https://github.com/user-attachments/assets/f61a7693-22ef-4156-9dcb-7fea3fd253ce)
+
 
 ### Object-Relational Mapping (ORM) [Gallery.java](./src/main/java/com/taip/FillTheVoid/gallery/Gallery.java)
 
