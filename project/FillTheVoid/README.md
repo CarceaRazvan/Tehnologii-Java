@@ -7,6 +7,8 @@
     - [Autentificare și autorizare JWT (Spring Security)](#autentificare-și-autorizare-jwt-spring-security)
     - [Java Persistence API (JPA)](#java-persistence-api-jpa)
     - [Arhitectura Model-View-Controller (Spring MVC)](#arhitectura-model-view-controller-spring-mvc)
+    - [Servicii REST](#servicii-rest)
+    - [Design Patterns](#design-patterns)
 - [Instalare](#instalare)
 - [Utilizare](#utilizare)
 
@@ -176,6 +178,17 @@ Spring MVC este un sub-framework care permite dezvoltarea de aplicații web folo
   - [GalleryService.java](./src/main/java/com/taip/FillTheVoid/gallery/GalleryService.java) 
 
   - Adnotarea @Service în Spring este utilizată pentru a marca o clasă ca fiind un bean de serviciu (service bean). Aceasta indică faptul că respectiva clasă conține logica de business și este gestionată de containerul Spring ca parte a ciclului de viață al aplicației.
+
+## Servicii REST
+
+REST (Representational State Transfer) este un tip de arhitectură care vine în sprijinul serverului și care presupune un set de reguli pe care aplicația trebuie să le îndeplinească pentru a fi o aplicație **RESTful**.
+
+![image](https://github.com/user-attachments/assets/3ba9e85b-771a-4115-a981-68b0e45874d9)
+
+## Design Patterns
+
+
+
 
 ### Detalii suplimentare
 Explicații mai detaliate despre funcționalități.
